@@ -13,6 +13,16 @@ namespace ParkingManagementSystem
         private int totalSpaces;
         private int availableSpaces;
         private List<string> vehicles;
-
+        public string ParkingID
+        {
+            get
+            {
+                return parkingID;
+            }
+            set
+            {
+                parkingID = value;
+            }
+        }
     }
 }
