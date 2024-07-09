@@ -35,5 +35,16 @@ namespace ParkingManagementSystem
                 location = value;
             }
         }
+        public int TotalSpaces
+        {
+            get
+            {
+                return totalSpaces;
+            }
+            set
+            { 
+                totalSpaces = value; 
+            }
+        }
     }
 }
