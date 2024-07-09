@@ -24,5 +24,16 @@ namespace ParkingManagementSystem
                 parkingID = value;
             }
         }
+        public string Location
+        {
+            get
+            {
+                return location;
+            }
+            set
+            {
+                location = value;
+            }
+        }
     }
 }
