@@ -164,7 +164,7 @@ namespace ParkingManagementSystem
         {
             foreach (var parking in parkings)
             {
-                parking.PrintParkingInfo()
+                parking.PrintParkingInfo();
             }
         }
 
@@ -238,7 +238,7 @@ namespace ParkingManagementSystem
                 ShowResultMessage(е.Message);
             }
         }
-        private static void SaveParkings()
+        private  void SaveParkings()
         {
             StreamWriter writer = new StreamWriter(filePath, false, Encoding.Unicode);
             using (writer)
