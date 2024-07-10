@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text;
 
 namespace ParkingManagementSystem
 {
@@ -10,18 +13,19 @@ namespace ParkingManagementSystem
         private static string menuActionChoice;
         static void Main(string[] args)
         {
+            LoadParkings();
             while (true)
             {
                 menuActionChoice = Console.ReadLine();
                 switch (menuActionChoice)
                 {
                     case "1":
-                        ShowActionTitle("Създаване на нов паркинг");
+                        ShowActionTitle("Добавяне на нов паркинг");
                         AddNewParking();
                         break;
                     case "2":
                         ShowActionTitle("Регистрация на превозно средство в паркинг\n\n\t Всички налични места");
-                        Registration();    
+                        Registration();
                         break;
                     case "3":
                         ShowActionTitle("Напускане на паркинг от превозно средство");
@@ -39,7 +43,28 @@ namespace ParkingManagementSystem
 
                         break;
                 }
-                throw new NotImplementedException();
+            }
+        }
+
+        private static void LoadParkings()
+        {
+            StreamReader reader = new StreamReader(filePath, Encoding.Unicode);
+            using (reader)
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] parkingInfo = line.Split(',');
+                    string parkingID = parkingInfo[0];
+                    string location = parkingInfo[1];
+                    int totalSpace = int.Parse(parkingInfo[2]);
+                    int availableSpace = int.Parse(parkingInfo[3]);
+                    int seatsAvailable = int.Parse(parkingInfo[4]);
+                    string vehicle = (parkingInfo[5]);
+
+                    Parking currentFlight = new Parking(parkingID,location,totalSpace);
+                    parkings.Add(currentFlight);
+                }
             }
         }
 
