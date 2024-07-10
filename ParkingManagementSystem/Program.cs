@@ -6,7 +6,7 @@ namespace ParkingManagementSystem
     {
         static void Main(string[] args)
         {
-
+            throw new NotImplementedException();
         }
     }
 }
