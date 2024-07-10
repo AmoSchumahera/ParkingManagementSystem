@@ -117,10 +117,10 @@ namespace ParkingManagementSystem
             ListParkings();
 
             Console.Write("\tВъведи Id на паркинга: ");
-            string parkingId = Console.ReadLine();
-            if (ParkingExists(parkingId))
+            string parkingID = Console.ReadLine();
+            if (ParkingExists(parkingID))
             {
-                Parking selectedParking = parkings.FirstOrDefault(p => p.ParkingID == parkingId);
+                Parking selectedParking = parkings.FirstOrDefault(p => p.ParkingID == parkingID);
 
                 Console.WriteLine($"\tБрой свободни места: {selectedParking.AvailableSpaces}");
 
@@ -138,19 +138,13 @@ namespace ParkingManagementSystem
             }
             else
             {
-                Console.WriteLine($"\tНевалиден номер на полет: {parkingId}");
+                Console.WriteLine($"\tНевалиден номер на полет: {parkingID}");
             }
 
         }
-
-        private static void SaveParkings()
+        private static bool ParkingExists(string parkingID)
         {
-            throw new NotImplementedException();
-        }
-
-        private static bool ParkingExists(string parkingId)
-        {
-            if (parkings.Find(p => p.ParkingID == parkingId) != null)
+            if (parkings.Find(p => p.ParkingID == parkingID) != null)
             {
                 return true;
             }
@@ -161,7 +155,7 @@ namespace ParkingManagementSystem
         {
             foreach (var parking in parkings)
             {
-                parking.PrintParkingInfo()
+                parking.PrintParkingInfo();
             }
         }
 
@@ -181,61 +175,38 @@ namespace ParkingManagementSystem
 
         private static void AddNewParking()
         {
-            Console.Write("\tНомер на полет: ");
-            string flightID = Console.ReadLine();
+            Console.Write("\t Номер на паркинг: ");
+            string parkingID = Console.ReadLine();
 
-            if (Exists(flightId))
+            if (ParkingExists(parkingID))
             {
-                ShowResultMessage("Номерът на полета трябва да е уникален.");
+                ShowResultMessage("ID-то на паркинга трябва да е уникален.");
                 return;
             }
 
-            Console.Write("\tДестинация: ");
-            string destination = Console.ReadLine();
-
-            DateTime departureTime = DateTime.Now;
-            DateTime arrivalTime = departureTime;
-            try
-            {
-                Console.Write("\tДата и час на заминаване{дд-мм-гг чч:мм}: ");
-                departureTime = DateTime.Parse(Console.ReadLine());
-
-                Console.Write("\tДата и час на пристигане{дд-мм-гг чч:мм}: ");
-                arrivalTime = DateTime.Parse(Console.ReadLine());
-            }
-            catch (Exception)
-            {
-                ShowResultMessage("Невалидна дата");
-
-                return;
-            }
-
-            Console.Write("\tБрой места: ");
-            int seatsAvailable = int.Parse(Console.ReadLine());
-
-            Console.Write("\tЦена на полета: ");
-            decimal price = decimal.Parse(Console.ReadLine());
+            Console.Write("\t Местополовение: ");
+            string location = Console.ReadLine();
+            Console.Write("\t Брой на местата: ");
+            int totalSpace = int.Parse(Console.ReadLine());
 
             try
             {
                 Parking newParking = new Parking(
-                ParkingID,
+                parkingID,
                 location,
-                totalSpace,
-                availableSpace,
-                vehicles);
+                totalSpace);
 
                 parkings.Add(newParking);
                 SaveParkings();
 
-                ShowResultMessage($"Полет с номер {parkingID} за {destination} е добавен успешно.");
+                ShowResultMessage($"Полет с номер {parkingID} за {location} е добавен успешно.");
             }
             catch (ArgumentException е)
             {
                 ShowResultMessage(е.Message);
             }
         }
-        private static void SaveParkings()
+        private void SaveParkings()
         {
             StreamWriter writer = new StreamWriter(filePath, false, Encoding.Unicode);
             using (writer)
