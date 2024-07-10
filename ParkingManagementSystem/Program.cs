@@ -70,7 +70,7 @@ namespace ParkingManagementSystem
 
         private static void LoadParkings()
         {
-            StreamReader reader = new StreamReader(filePath, Encoding.Unicode);
+            StreamReader reader = new StreamReader(filePath);
             using (reader)
             {
                 string line;
