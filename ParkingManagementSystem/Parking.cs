@@ -57,5 +57,25 @@ namespace ParkingManagementSystem
                 availableSpaces= value; 
             }
         }
+
+        public List<string> Vehicles { get => vehicles; set => vehicles = value; }
+
+        public Parking(string parkingID, string location, int totalSpaces)
+        {
+            ParkingID = parkingID;
+            Location = location;
+            TotalSpaces = totalSpaces;
+            AvailableSpaces = 0;
+            Vehicles = new List<string>();
+        }
+
+        public override string ToString()
+        {
+            return $"{ParkingID},{Location},{TotalSpaces},{AvailableSpaces},{AvailableSpaces},{string.Join(",", Vehicles)}";
+        }
+        public void PrintParkingInfo()
+        {
+            Console.WriteLine($"Информация за паркинг с Id {ParkingID}:\nМестоположение - {Location}\nОбщо места - {TotalSpaces}\nСвободни места - {AvailableSpaces}\nКоли в паркинга - {string.Join(", ",Vehicles)}");
+        }
     }
 }
