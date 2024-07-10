@@ -42,8 +42,19 @@ namespace ParkingManagementSystem
                 return totalSpaces;
             }
             set
+            {
+                totalSpaces = value;
+            }
+        }
+        public int AvailableSpaces
+        {
+            get 
             { 
-                totalSpaces = value; 
+                return availableSpaces; 
+            }
+            set 
+            {
+                availableSpaces= value; 
             }
         }
     }
