@@ -29,16 +29,20 @@ namespace ParkingManagementSystem
                         AddNewParking();
                         break;
                     case "2":
-                        ShowActionTitle("Регистрация на превозно средство в паркинг\n\n\t Всички налични места");
-                        Registration();
+                        ShowActionTitle("Регистрация на превозно средство в паркинг");
+                        RegistrationCarInParking();
                         break;
                     case "3":
                         ShowActionTitle("Напускане на паркинг от превозно средство");
-                        FreeParkings();
+                        FreeParking();
                         break;
                     case "4":
                         ShowActionTitle("Проверка на наличността на паркоместа");
                         CheckSlots();
+                        break;
+                    case "5":
+                        ShowActionTitle("Справка за всички паркинги");
+                        ListParkings();
                         break;
                     case "x" or "X":
                         Exit();
@@ -48,12 +52,14 @@ namespace ParkingManagementSystem
 
                         break;
                 }
+                BackToMenu();
             }
         }
 
+
         private static void PrintMenu()
         {
-            //Console.Clear();
+            Console.Clear();
 
             Console.WriteLine();
             Console.WriteLine("\tМ Е Н Ю");
@@ -61,14 +67,22 @@ namespace ParkingManagementSystem
             Console.WriteLine("\tМоля изберете желаното действие:");
             Console.WriteLine();
             Console.WriteLine("\t[1]: Добавяне на нов паркинг");
-            Console.WriteLine("\t[2]: Регистрация на превозно средство в паркинг\n\n\t Всички налични места");
+            Console.WriteLine("\t[2]: Регистрация на превозно средство в паркинг");
             Console.WriteLine("\t[3]: Напускане на паркинг от превозно средство");
             Console.WriteLine("\t[4]: Проверка на наличността на паркоместа");
+            Console.WriteLine("\t[5]: Справка за всички паркинги");
             Console.WriteLine("\t[x]: Изход от програмата");
             Console.WriteLine();
             Console.Write("\tВашият избор: ");
         }
 
+        private static void BackToMenu()
+        {
+            Console.WriteLine();
+            Console.Write("\tНатисни произвлен клавиш обратно към МЕНЮ: ");
+            Console.ReadLine();
+            PrintMenu();
+        }
         private static void LoadParkings()
         {
             StreamReader reader = new StreamReader(filePath);
@@ -91,7 +105,6 @@ namespace ParkingManagementSystem
 
                     Parking currentParking = new Parking(parkingID, location, totalSpace, availableSpace, vehicles);
                     parkings.Add(currentParking);
-                    currentParking.PrintParkingInfo();
                 }
             }
         }
@@ -106,12 +119,12 @@ namespace ParkingManagementSystem
 
         }
 
-        private static void FreeParkings()
+        private static void FreeParking()
         {
             throw new NotImplementedException();
         }
 
-        private static void Registration()
+        private static void RegistrationCarInParking()
         {
 
             ListParkings();
@@ -122,26 +135,35 @@ namespace ParkingManagementSystem
             {
                 Parking selectedParking = parkings.FirstOrDefault(p => p.ParkingID == parkingID);
 
-                Console.WriteLine($"\tБрой свободни места: {selectedParking.AvailableSpaces}");
+               
 
                 if (selectedParking.AvailableSpaces <= 0)
                 {
                     Console.WriteLine($"\tСъжаляваме, но на този паркинг няма свободни места.");
                 }
                 else
+
                 {
-                    Console.Write("Въведете номера на колата: ");
+                    Console.WriteLine($"\n\tБроя на свободните места е {selectedParking.AvailableSpaces}");
+                    Console.Write("\tВъведете номера на колата: ");
                     string regNumber = Console.ReadLine();
-                    selectedParking.AvailableSpaces = -1;
-                    Console.WriteLine($"\tПоздравления. Успешно запазихте място в паркинг с Id {selectedParking.ParkingID}");
-                    Console.WriteLine($"\tПожелаваме Ви приятен den.");
-                    selectedParking.Vehicles.Add(regNumber);
+                    selectedParking.AvailableSpaces -= 1;
+                    Console.WriteLine($"\n\tПоздравления. Успешно запазихте място за кола в паркинг {selectedParking.ParkingID} с рег. номер {regNumber}.");
+                    Console.WriteLine($"\tНа този паркинг вече има {selectedParking.AvailableSpaces} свободни места.\n\t\tПожелаваме Ви приятен ден!");
+                    if (selectedParking.Vehicles[0]=="x")
+                    {
+                        selectedParking.Vehicles[0] = regNumber;
+                    }
+                    else
+                    {
+                        selectedParking.Vehicles.Add(regNumber);
+                    }                    
                     SaveParkings();
                 }
             }
             else
             {
-                Console.WriteLine($"\tНевалиден номер на полет: {parkingID}");
+                Console.WriteLine($"\tНевалиден Id на паркинг: {parkingID}");
             }
 
         }
@@ -187,7 +209,7 @@ namespace ParkingManagementSystem
                 return;
             }
 
-            Console.Write("\t Местополовение: ");
+            Console.Write("\t Местоположение: ");
             string location = Console.ReadLine();
             Console.Write("\t Брой на местата: ");
             int totalSpace = int.Parse(Console.ReadLine());
