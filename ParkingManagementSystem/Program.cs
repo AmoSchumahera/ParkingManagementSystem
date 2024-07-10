@@ -59,11 +59,15 @@ namespace ParkingManagementSystem
                     string location = parkingInfo[1];
                     int totalSpace = int.Parse(parkingInfo[2]);
                     int availableSpace = int.Parse(parkingInfo[3]);
-                    int seatsAvailable = int.Parse(parkingInfo[4]);
-                    string vehicle = (parkingInfo[5]);
 
-                    Parking currentFlight = new Parking(parkingID,location,totalSpace);
-                    parkings.Add(currentFlight);
+                    List<string> vehicles = new List<string>();
+                    for (int i = 4; i < parkingInfo.Length; i++)
+                    {
+                        vehicles.Add(parkingInfo[i]);
+                    }
+
+                    Parking currentParking = new Parking(parkingID, location, totalSpace,availableSpace,vehicles);
+                    parkings.Add(currentParking);
                 }
             }
         }
@@ -88,9 +92,18 @@ namespace ParkingManagementSystem
             throw new NotImplementedException();
         }
 
-        private static void ShowActionTitle(string v)
+        private static void ShowActionTitle(string title)
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine("\t" + title);
+            Console.WriteLine();
+        }
+
+        private static void ShowResultMessage(string message)
+        {
+            Console.WriteLine();
+            Console.WriteLine("\t" + message);
         }
 
         private static void AddNewParking()

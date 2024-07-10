@@ -69,6 +69,12 @@ namespace ParkingManagementSystem
             Vehicles = new List<string>();
         }
 
+        public Parking(string parkingID, string location, int totalSpaces, int availableSpaces, List<string> vehicles) : this(parkingID, location, totalSpaces)
+        {
+            AvailableSpaces = availableSpaces;
+            Vehicles = vehicles;
+        }
+
         public override string ToString()
         {
             return $"{ParkingID},{Location},{TotalSpaces},{AvailableSpaces},{string.Join(",", Vehicles)}";
