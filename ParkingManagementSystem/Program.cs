@@ -14,7 +14,11 @@ namespace ParkingManagementSystem
         private static string menuActionChoice;
         static void Main(string[] args)
         {
+            // Console configuration
+            Console.InputEncoding = Encoding.Unicode;
+            Console.OutputEncoding = Encoding.Unicode;
             LoadParkings();
+            PrintMenu();
             while (true)
             {
                 menuActionChoice = Console.ReadLine();
@@ -45,6 +49,24 @@ namespace ParkingManagementSystem
                         break;
                 }
             }
+        }
+
+        private static void PrintMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine();
+            Console.WriteLine("\tМ Е Н Ю");
+            Console.WriteLine();
+            Console.WriteLine("\tМоля изберете желаното действие:");
+            Console.WriteLine();
+            Console.WriteLine("\t[1]: Добавяне на нов паркинг");
+            Console.WriteLine("\t[2]: Регистрация на превозно средство в паркинг\n\n\t Всички налични места");
+            Console.WriteLine("\t[3]: Напускане на паркинг от превозно средство");
+            Console.WriteLine("\t[4]: Проверка на наличността на паркоместа");
+            Console.WriteLine("\t[x]: Изход от програмата");
+            Console.WriteLine();
+            Console.Write("\tВашият избор: ");
         }
 
         private static void LoadParkings()
@@ -80,7 +102,7 @@ namespace ParkingManagementSystem
 
         private static void CheckSlots()
         {
-            throw new NotImplementedException();
+
         }
 
         private static void FreeParkings()
@@ -159,6 +181,17 @@ namespace ParkingManagementSystem
         private static void AddNewParking()
         {
             throw new NotImplementedException();
+        }
+        private static void SaveParkings()
+        {
+            StreamWriter writer = new StreamWriter(filePath, false, Encoding.Unicode);
+            using (writer)
+            {
+                foreach (Parking parking in parkings)
+                {
+                    writer.WriteLine(parking);
+                }
+            }
         }
     }
 }
