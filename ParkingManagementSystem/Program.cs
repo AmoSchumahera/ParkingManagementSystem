@@ -130,9 +130,12 @@ namespace ParkingManagementSystem
                 }
                 else
                 {
+                    Console.Write("Въведете номера на колата: ");
+                    string regNumber = Console.ReadLine();
                     selectedParking.AvailableSpaces = -1;
                     Console.WriteLine($"\tПоздравления. Успешно запазихте място в паркинг с Id {selectedParking.ParkingID}");
                     Console.WriteLine($"\tПожелаваме Ви приятен den.");
+                    selectedParking.Vehicles.Add(regNumber);
                     SaveParkings();
                 }
             }
