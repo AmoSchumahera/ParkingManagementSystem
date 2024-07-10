@@ -121,7 +121,40 @@ namespace ParkingManagementSystem
 
         private static void FreeParking()
         {
-            throw new NotImplementedException();
+            ListParkings();
+
+            Console.Write("\tВъведи Id на паркинга: ");
+            string parkingID = Console.ReadLine();
+            if (ParkingExists(parkingID))
+            {
+                Parking selectedParking = parkings.FirstOrDefault(p => p.ParkingID == parkingID);
+
+                PrintCarsInParking(selectedParking);
+                Console.Write("\t\tВъведете поредния номер на колата: ");
+                int numberToFree = int.Parse(Console.ReadLine());                
+                Console.WriteLine($"Кола с рег. номер {selectedParking.Vehicles[numberToFree - 1]} напусна паркинга.");
+                selectedParking.Vehicles.RemoveAt(numberToFree - 1);
+                selectedParking.AvailableSpaces += 1;
+                if (selectedParking.Vehicles.Count == 0)
+                {
+                    selectedParking.Vehicles[0] = "x";
+                }
+
+                SaveParkings();
+            }
+            else
+            {
+                Console.WriteLine($"\tНевалиден Id на паркинг: {parkingID}");
+            }
+        }
+
+        private static void PrintCarsInParking(Parking parking)
+        {
+            for (int i = 0; i < parking.Vehicles.Count; i++)
+            {
+                Console.WriteLine($"{i+1} -> {parking.Vehicles[i]}");
+            }
+            Console.WriteLine();
         }
 
         private static void RegistrationCarInParking()
@@ -222,6 +255,7 @@ namespace ParkingManagementSystem
                 totalSpace);
 
                 parkings.Add(newParking);
+                parkings = parkings.OrderBy(p => p.ParkingID).ToList();
                 SaveParkings();
 
                 ShowResultMessage($"Паркинг с ID {parkingID} в {location} е добавен успешно.");

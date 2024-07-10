@@ -81,7 +81,7 @@ namespace ParkingManagementSystem
         }
         public void PrintParkingInfo()
         {
-            Console.WriteLine($"Информация за паркинг с Id {ParkingID}:\nМестоположение - {Location}\nОбщо места - {TotalSpaces}\nСвободни места - {AvailableSpaces}\nКоли в паркинга - {string.Join(", ",Vehicles)}\n");
+            Console.WriteLine($"Информация за паркинг с Id {ParkingID}:\n\tМестоположение - {Location}\n\tОбщо места - {TotalSpaces}\n\tСвободни места - {AvailableSpaces}\n\tКоли в паркинга - {string.Join(", ",Vehicles)}\n");
         }
     }
 }
