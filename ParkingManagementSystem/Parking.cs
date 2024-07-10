@@ -71,7 +71,7 @@ namespace ParkingManagementSystem
 
         public override string ToString()
         {
-            return $"{ParkingID},{Location},{TotalSpaces},{AvailableSpaces},{AvailableSpaces},{string.Join(",", Vehicles)}";
+            return $"{ParkingID},{Location},{TotalSpaces},{AvailableSpaces},{string.Join(",", Vehicles)}";
         }
         public void PrintParkingInfo()
         {
