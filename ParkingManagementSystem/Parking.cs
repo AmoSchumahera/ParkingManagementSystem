@@ -65,7 +65,7 @@ namespace ParkingManagementSystem
             ParkingID = parkingID;
             Location = location;
             TotalSpaces = totalSpaces;
-            AvailableSpaces = 0;
+            AvailableSpaces = totalSpaces;
             Vehicles = new List<string>();
         }
 
