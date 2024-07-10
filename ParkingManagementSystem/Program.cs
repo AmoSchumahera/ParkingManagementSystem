@@ -178,7 +178,7 @@ namespace ParkingManagementSystem
 
         private static void AddNewParking()
         {
-            Console.Write("\t Номер на паркинг: ");
+            Console.Write("\t ID на паркинг: ");
             string parkingID = Console.ReadLine();
 
             if (ParkingExists(parkingID))
@@ -202,14 +202,14 @@ namespace ParkingManagementSystem
                 parkings.Add(newParking);
                 SaveParkings();
 
-                ShowResultMessage($"Полет с номер {parkingID} за {location} е добавен успешно.");
+                ShowResultMessage($"Паркинг с ID {parkingID} в {location} е добавен успешно.");
             }
             catch (ArgumentException е)
             {
                 ShowResultMessage(е.Message);
             }
         }
-        private void SaveParkings()
+        private static void SaveParkings()
         {
             StreamWriter writer = new StreamWriter(filePath, false, Encoding.Unicode);
             using (writer)
