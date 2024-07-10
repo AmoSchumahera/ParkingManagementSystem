@@ -52,7 +52,7 @@ namespace ParkingManagementSystem
 
         private static void PrintMenu()
         {
-            Console.Clear();
+            //Console.Clear();
 
             Console.WriteLine();
             Console.WriteLine("\tМ Е Н Ю");
@@ -90,13 +90,14 @@ namespace ParkingManagementSystem
 
                     Parking currentParking = new Parking(parkingID, location, totalSpace, availableSpace, vehicles);
                     parkings.Add(currentParking);
+                    currentParking.PrintParkingInfo();
                 }
             }
         }
 
         private static void Exit()
         {
-            throw new NotImplementedException();
+            Environment.Exit(0);
         }
 
         private static void CheckSlots()
@@ -130,7 +131,59 @@ namespace ParkingManagementSystem
 
         private static void AddNewParking()
         {
-            throw new NotImplementedException();
+            Console.Write("\tНомер на полет: ");
+            string flightID = Console.ReadLine();
+
+            if (Exists(flightId))
+            {
+                ShowResultMessage("Номерът на полета трябва да е уникален.");
+                return;
+            }
+
+            Console.Write("\tДестинация: ");
+            string destination = Console.ReadLine();
+
+            DateTime departureTime = DateTime.Now;
+            DateTime arrivalTime = departureTime;
+            try
+            {
+                Console.Write("\tДата и час на заминаване{дд-мм-гг чч:мм}: ");
+                departureTime = DateTime.Parse(Console.ReadLine());
+
+                Console.Write("\tДата и час на пристигане{дд-мм-гг чч:мм}: ");
+                arrivalTime = DateTime.Parse(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                ShowResultMessage("Невалидна дата");
+
+                return;
+            }
+
+            Console.Write("\tБрой места: ");
+            int seatsAvailable = int.Parse(Console.ReadLine());
+
+            Console.Write("\tЦена на полета: ");
+            decimal price = decimal.Parse(Console.ReadLine());
+
+            try
+            {
+                Parking newParking = new Parking(
+                ParkingID,
+                location,
+                totalSpace,
+                availableSpace,
+                vehicles);
+
+                parkings.Add(newParking);
+                SaveParkings();
+
+                ShowResultMessage($"Полет с номер {parkingID} за {destination} е добавен успешно.");
+            }
+            catch (ArgumentException е)
+            {
+                ShowResultMessage(е.Message);
+            }
         }
         private static void SaveParkings()
         {
