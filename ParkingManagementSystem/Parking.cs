@@ -79,6 +79,26 @@ namespace ParkingManagementSystem
         {
             return $"{ParkingID},{Location},{TotalSpaces},{AvailableSpaces},{string.Join(",", Vehicles)}";
         }
+        public void AddCar(string regNumber)
+        {
+            if (Vehicles[0] == "x")
+            {
+               Vehicles[0] = regNumber;
+            }
+            else
+            {
+               Vehicles.Add(regNumber);
+            }
+        }
+        public void RemoveCar(int number)
+        {
+            Vehicles.RemoveAt(number);
+            AvailableSpaces += 1;
+            if (Vehicles.Count == 0)
+            {
+                Vehicles.Add("x");
+            }
+        }
         public void PrintParkingInfo()
         {
             Console.WriteLine($"Информация за паркинг с Id {ParkingID}:\n\tМестоположение - {Location}\n\tОбщо места - {TotalSpaces}\n\tСвободни места - {AvailableSpaces}\n\tКоли в паркинга - {string.Join(", ",Vehicles)}\n");

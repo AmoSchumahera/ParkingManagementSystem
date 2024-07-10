@@ -56,7 +56,6 @@ namespace ParkingManagementSystem
             }
         }
 
-
         private static void PrintMenu()
         {
             Console.Clear();
@@ -143,13 +142,8 @@ namespace ParkingManagementSystem
                 Console.Write("\t\tВъведете поредния номер на колата: ");
                 int numberToFree = int.Parse(Console.ReadLine());
                 ShowResultMessage($"Кола с рег. номер {selectedParking.Vehicles[numberToFree - 1]} напусна паркинга.");
-                selectedParking.Vehicles.RemoveAt(numberToFree - 1);
-                selectedParking.AvailableSpaces += 1;
-                if (selectedParking.Vehicles.Count == 0)
-                {
-                    selectedParking.Vehicles[0] = "x";
-                }
-
+                selectedParking.RemoveCar(numberToFree - 1);
+               
                 SaveParkings();
             }
             else
@@ -169,7 +163,6 @@ namespace ParkingManagementSystem
 
         private static void RegistrationCarInParking()
         {
-
             ListParkings();
 
             Console.Write("\tВъведи Id на паркинга: ");
@@ -193,14 +186,7 @@ namespace ParkingManagementSystem
                     selectedParking.AvailableSpaces -= 1;
                     Console.WriteLine($"\n\tПоздравления. Успешно запазихте място за кола в паркинг {selectedParking.ParkingID} с рег. номер {regNumber}.");
                     Console.WriteLine($"\tНа този паркинг вече има {selectedParking.AvailableSpaces} свободни места.\n\t\tПожелаваме Ви приятен ден!");
-                    if (selectedParking.Vehicles[0]=="x")
-                    {
-                        selectedParking.Vehicles[0] = regNumber;
-                    }
-                    else
-                    {
-                        selectedParking.Vehicles.Add(regNumber);
-                    }                    
+                    selectedParking.AddCar( regNumber );   
                     SaveParkings();
                 }
             }
