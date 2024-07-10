@@ -209,7 +209,7 @@ namespace ParkingManagementSystem
                 ShowResultMessage(е.Message);
             }
         }
-        private void SaveParkings()
+        private static void SaveParkings()
         {
             StreamWriter writer = new StreamWriter(filePath, false, Encoding.Unicode);
             using (writer)

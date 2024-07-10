@@ -1,3 +1,0 @@
-orl,Razgrad-orel,30,2,PP1516AK,P2324AM
-rse,Ruse,52,50,P2345СА,P8765BC,PP4556AO
-sfa,Sofia,105,105,x
