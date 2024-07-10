@@ -66,7 +66,7 @@ namespace ParkingManagementSystem
             Location = location;
             TotalSpaces = totalSpaces;
             AvailableSpaces = totalSpaces;
-            Vehicles = new List<string>();
+            Vehicles = new List<string>() { "x"};
         }
 
         public Parking(string parkingID, string location, int totalSpaces, int availableSpaces, List<string> vehicles) : this(parkingID, location, totalSpaces)
@@ -81,7 +81,7 @@ namespace ParkingManagementSystem
         }
         public void PrintParkingInfo()
         {
-            Console.WriteLine($"Информация за паркинг с Id {ParkingID}:\nМестоположение - {Location}\nОбщо места - {TotalSpaces}\nСвободни места - {AvailableSpaces}\nКоли в паркинга - {string.Join(", ",Vehicles)}");
+            Console.WriteLine($"Информация за паркинг с Id {ParkingID}:\nМестоположение - {Location}\nОбщо места - {TotalSpaces}\nСвободни места - {AvailableSpaces}\nКоли в паркинга - {string.Join(", ",Vehicles)}\n0000000000000000000000000000000000");
         }
     }
 }

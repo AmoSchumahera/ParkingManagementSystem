@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace ParkingManagementSystem
@@ -112,7 +113,56 @@ namespace ParkingManagementSystem
 
         private static void Registration()
         {
+
+            ListParkings();
+
+            Console.Write("\tВъведи Id на паркинга: ");
+            string parkingId = Console.ReadLine();
+            if (ParkingExists(parkingId))
+            {
+                Parking selectedParking = parkings.FirstOrDefault(p => p.ParkingID == parkingId);
+
+                Console.WriteLine($"\tБрой свободни места: {selectedParking.AvailableSpaces}");
+
+                if (selectedParking.AvailableSpaces <= 0)
+                {
+                    Console.WriteLine($"\tСъжаляваме, но на този паркинг няма свободни места.");
+                }
+                else
+                {
+                    selectedParking.AvailableSpaces = -1;
+                    Console.WriteLine($"\tПоздравления. Успешно запазихте място в паркинг с Id {selectedParking.ParkingID}");
+                    Console.WriteLine($"\tПожелаваме Ви приятен den.");
+                    SaveParkings();
+                }
+            }
+            else
+            {
+                Console.WriteLine($"\tНевалиден номер на полет: {parkingId}");
+            }
+
+        }
+
+        private static void SaveParkings()
+        {
             throw new NotImplementedException();
+        }
+
+        private static bool ParkingExists(string parkingId)
+        {
+            if (parkings.Find(p => p.ParkingID == parkingId) != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static void ListParkings()
+        {
+            foreach (var parking in parkings)
+            {
+                parking.PrintParkingInfo()
+            }
         }
 
         private static void ShowActionTitle(string title)
