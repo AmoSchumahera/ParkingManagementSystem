@@ -116,7 +116,17 @@ namespace ParkingManagementSystem
 
         private static void CheckSlots()
         {
-
+            Console.Write("\tВъведи Id на паркинга: ");
+            string parkingID = Console.ReadLine();
+            if (ParkingExists(parkingID))
+            {
+                Parking selectedParking = parkings.FirstOrDefault(p => p.ParkingID == parkingID);
+                ShowResultMessage($"\tПаркинг с Id {parkingID} има {selectedParking.AvailableSpaces} свободни места.");
+            }
+            else
+            {
+                ShowResultMessage($"\tНевалиден Id на паркинг: {parkingID}");
+            }
         }
 
         private static void FreeParking()
@@ -131,8 +141,8 @@ namespace ParkingManagementSystem
 
                 PrintCarsInParking(selectedParking);
                 Console.Write("\t\tВъведете поредния номер на колата: ");
-                int numberToFree = int.Parse(Console.ReadLine());                
-                Console.WriteLine($"Кола с рег. номер {selectedParking.Vehicles[numberToFree - 1]} напусна паркинга.");
+                int numberToFree = int.Parse(Console.ReadLine());
+                ShowResultMessage($"Кола с рег. номер {selectedParking.Vehicles[numberToFree - 1]} напусна паркинга.");
                 selectedParking.Vehicles.RemoveAt(numberToFree - 1);
                 selectedParking.AvailableSpaces += 1;
                 if (selectedParking.Vehicles.Count == 0)
@@ -144,7 +154,7 @@ namespace ParkingManagementSystem
             }
             else
             {
-                Console.WriteLine($"\tНевалиден Id на паркинг: {parkingID}");
+                ShowResultMessage($"\tНевалиден Id на паркинг: {parkingID}");
             }
         }
 
@@ -172,7 +182,7 @@ namespace ParkingManagementSystem
 
                 if (selectedParking.AvailableSpaces <= 0)
                 {
-                    Console.WriteLine($"\tСъжаляваме, но на този паркинг няма свободни места.");
+                    ShowResultMessage($"\tСъжаляваме, но на този паркинг няма свободни места.");
                 }
                 else
 
@@ -196,7 +206,7 @@ namespace ParkingManagementSystem
             }
             else
             {
-                Console.WriteLine($"\tНевалиден Id на паркинг: {parkingID}");
+                ShowResultMessage($"\tНевалиден Id на паркинг: {parkingID}");
             }
 
         }
